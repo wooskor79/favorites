@@ -12,7 +12,8 @@ $id = $_GET['id'] ?? null;
 if ($id) {
     $conn_shortener = get_shortener_db_connection();
     if ($conn_shortener) {
-        $stmt = $conn_shortener->prepare("DELETE FROM links WHERE id = ?");
+        // [수정] 테이블명 urls로 변경
+        $stmt = $conn_shortener->prepare("DELETE FROM urls WHERE id = ?");
         $stmt->bind_param("i", $id);
         if ($stmt->execute()) {
             $_SESSION['message'] = "단축 URL이 삭제되었습니다.";
