@@ -1,5 +1,5 @@
 <?php
-// File: app/actions/add_link.php
+// 파일명: app/actions/add_link.php
 require_once '../core/init.php';
 
 if (!$is_loggedin) {
@@ -18,8 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $url = "https://".$url;
         }
 
-        $stmt = $conn->prepare("INSERT INTO quick_links (title, url) VALUES (?, ?)");
-        $stmt->bind_param("ss", $title, $url);
+        // 현재 최대 sort_order 값을 가져와서 다음 순번 결정
+        $res = $conn->query("SELECT MAX(sort_order) as max_order FROM quick_links");
+        $row = $res->fetch_assoc();
+        $next_order = ($row['max_order'] !== null) ? (int)$row['max_order'] + 1 : 0;
+
+        $stmt = $conn->prepare("INSERT INTO quick_links (title, url, sort_order) VALUES (?, ?, ?)");
+        $stmt->bind_param("ssi", $title, $url, $next_order);
 
         if ($stmt->execute()) {
             $_SESSION['message'] = "새로운 링크가 성공적으로 추가되었습니다.";
@@ -30,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 $conn->close();
-// 올바른 탭으로 리디렉션
 header("location: ../admin.php?tab=quick_links");
 exit;
 ?>

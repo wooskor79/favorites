@@ -1,5 +1,5 @@
 <?php
-// File: app/templates/admin/quick_links.php
+// 파일명: app/templates/admin/quick_links.php
 ?>
 <div class="bg-white p-6 rounded-xl shadow-md mb-8">
     <h2 class="text-2xl font-semibold mb-4 text-gray-700">새 링크 추가</h2>
@@ -48,6 +48,14 @@
                             <div class="admin-default-view flex items-center gap-3">
                                 <button type="button" onclick="showEditLink(<?php echo $link['id']; ?>)" class="text-indigo-600 hover:text-indigo-900">수정</button>
                                 <button type="button" onclick="showAdminConfirm(this)" class="text-red-600 hover:text-red-900">삭제</button>
+                                <div class="flex items-center gap-1 ml-2 border-l pl-3 border-gray-200">
+                                    <button type="button" onclick="moveLink(<?php echo $link['id']; ?>, 'up')" class="text-gray-400 hover:text-blue-500 p-1" title="위로">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+                                    </button>
+                                    <button type="button" onclick="moveLink(<?php echo $link['id']; ?>, 'down')" class="text-gray-400 hover:text-blue-500 p-1" title="아래로">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </button>
+                                </div>
                             </div>
                             <div class="admin-confirm-view hidden items-center gap-2">
                                  <a href="actions/delete_link.php?id=<?php echo $link['id']; ?>" class="font-bold text-red-600 hover:underline">예</a>
