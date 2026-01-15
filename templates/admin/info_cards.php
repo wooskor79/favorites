@@ -32,7 +32,17 @@
                 <div class="ml-4 flex-shrink-0">
                     <div class="view-mode flex items-center gap-3">
                         <button onclick="showEditGroupTitle(<?php echo $group['id']; ?>)" class="text-sm text-indigo-600 hover:underline">제목 수정</button>
-                        <a href="actions/delete_info_card_group.php?id=<?php echo $group['id']; ?>" onclick="return confirm('이 그룹과 모든 내용이 삭제됩니다. 계속하시겠습니까?')" class="text-sm text-red-500 hover:underline">그룹 삭제</a>
+                        
+                        <div class="admin-default-view inline-block">
+                            <button onclick="showAdminConfirm(this)" class="text-sm text-red-500 hover:underline">그룹 삭제</button>
+                        </div>
+                        <div class="admin-confirm-view hidden items-center gap-2 inline-block">
+                            <span class="text-xs text-red-500 font-bold">삭제?</span>
+                            <a href="actions/delete_info_card_group.php?id=<?php echo $group['id']; ?>" class="text-sm font-bold text-red-600 hover:underline">예</a>
+                            <span class="text-gray-300">|</span>
+                            <button onclick="hideAdminConfirm(this)" class="text-sm font-bold text-gray-600 hover:underline">아니오</button>
+                        </div>
+
                     </div>
                     <div class="edit-mode hidden flex items-center gap-2">
                         <button onclick="saveGroupTitle(<?php echo $group['id']; ?>)" class="text-sm font-bold text-green-600 hover:underline">저장</button>
@@ -46,7 +56,7 @@
                     <tr>
                         <th class="pb-2 text-left text-xs font-semibold text-gray-600 uppercase">내용</th>
                         <th class="pb-2 text-left text-xs font-semibold text-gray-600 uppercase">URL</th>
-                        <th class="pb-2 text-left text-xs font-semibold text-gray-600 uppercase">관리</th>
+                        <th class="pb-2 text-left text-xs font-semibold text-gray-600 uppercase w-48">관리</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,10 +70,27 @@
                                 <span class="view-mode"><a href="<?php echo htmlspecialchars($item['url']); ?>" target="_blank" class="text-blue-500 hover:underline"><?php echo htmlspecialchars($item['url']); ?></a></span>
                                 <input type="text" value="<?php echo htmlspecialchars($item['url']); ?>" class="edit-mode hidden w-full p-2 border rounded-lg">
                             </td>
-                            <td class="py-2 border-b border-gray-200 w-40">
+                            <td class="py-2 border-b border-gray-200">
                                 <div class="view-mode flex items-center gap-3">
                                     <button onclick="showEditItem(<?php echo $item['id']; ?>)" class="text-indigo-600 hover:text-indigo-900">수정</button>
-                                    <a href="actions/delete_info_card_item.php?id=<?php echo $item['id']; ?>" class="text-red-600 hover:text-red-900">삭제</a>
+                                    
+                                    <div class="admin-default-view inline-block">
+                                        <button onclick="showAdminConfirm(this)" class="text-red-600 hover:text-red-900">삭제</button>
+                                    </div>
+                                    <div class="admin-confirm-view hidden items-center gap-2 inline-block">
+                                        <a href="actions/delete_info_card_item.php?id=<?php echo $item['id']; ?>" class="font-bold text-red-600 hover:underline">예</a>
+                                        <span class="text-gray-300">|</span>
+                                        <button onclick="hideAdminConfirm(this)" class="font-bold text-gray-600 hover:underline">아니오</button>
+                                    </div>
+
+                                    <div class="flex items-center gap-1 ml-2 border-l pl-2 border-gray-200">
+                                        <button type="button" onclick="moveInfoCardItem(<?php echo $item['id']; ?>, 'up')" class="text-gray-400 hover:text-blue-500 p-1" title="위로">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+                                        </button>
+                                        <button type="button" onclick="moveInfoCardItem(<?php echo $item['id']; ?>, 'down')" class="text-gray-400 hover:text-blue-500 p-1" title="아래로">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="edit-mode hidden items-center gap-2">
                                     <button onclick="saveItem(<?php echo $item['id']; ?>)" class="font-bold text-green-600 hover:underline">저장</button>

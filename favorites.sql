@@ -82,3 +82,4 @@ CREATE TABLE IF NOT EXISTS `info_card_items` (
 
 -- [기존 DB 수정용]
 -- ALTER TABLE `quick_links` ADD `sort_order` INT NOT NULL DEFAULT 0 AFTER `url`;
+ALTER TABLE info_card_items ADD COLUMN sort_order INT NOT NULL DEFAULT 0;

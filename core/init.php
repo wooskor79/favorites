@@ -44,7 +44,7 @@ if ($memo_result) {
     while($row = $memo_result->fetch_assoc()) { $memos[] = $row; }
 }
 
-// 빠른 링크 조회 (sort_order 정렬 추가)
+// 빠른 링크 조회
 $quick_links = [];
 $quick_links_result = $conn->query("SELECT * FROM quick_links ORDER BY sort_order ASC, created_at ASC");
 if ($quick_links_result) {
@@ -62,7 +62,8 @@ if ($group_result) {
 }
 
 if (!empty($info_card_groups)) {
-    $item_result = $conn->query("SELECT * FROM info_card_items ORDER BY id ASC");
+    // [수정] 아이템을 sort_order 순으로 정렬하여 조회
+    $item_result = $conn->query("SELECT * FROM info_card_items ORDER BY sort_order ASC, id ASC");
     if ($item_result) {
         while($item = $item_result->fetch_assoc()) {
             if (isset($info_card_groups[$item['group_id']])) {

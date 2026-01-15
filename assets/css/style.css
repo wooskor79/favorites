@@ -1,13 +1,204 @@
-/* File: src/asset/css/style.css */
-body {
-    background-color: #bababa;
-    transition: background-color 0.3s, color 0.3s;
-}
-.group-content {
-    transition: all 0.3s ease-in-out;
+/* File: app/assets/css/style.css */
+
+/* =========================================
+   BMW & M Performance Theme Variables
+   ========================================= */
+:root {
+    /* [Light Mode] BMW Style: Silver & Amber Orange */
+    --bg-body: #E0E0E0;          /* 메탈릭 실버 배경 */
+    --bg-card: #FFFFFF;
+    --text-main: #1A1A1A;
+    --text-sub: #4A4A4A;
+    --text-muted: #888888;
+    
+    /* Primary Colors (Amber Orange Gradient) */
+    --primary-gradient-start: #FFAA33;
+    --primary-gradient-end: #FF8800;
+    --primary-border: #CC6600;
+    
+    /* Secondary Colors (Metallic Silver) */
+    --secondary-bg: #F0F0F0;
+    --secondary-gradient-start: #FFFFFF;
+    --secondary-gradient-end: #DCDCDC;
+    --secondary-border: #AAAAAA;
+    
+    /* Danger Colors (Red) */
+    --danger-gradient-start: #FF6B6B;
+    --danger-gradient-end: #D9243C;
+
+    --border-color: #CCCCCC;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-btn: 0 2px 4px rgba(0,0,0,0.15); /* 버튼 그림자 */
+    
+    --decoration-line: 4px solid #FF8800;
 }
 
-/* 빠른 링크 버튼 스타일 */
+.dark-mode {
+    /* [Dark Mode] BMW M Style: Carbon Black & M Blue */
+    --bg-body: #111111;          /* 카본 블랙 */
+    --bg-card: #1E1E1E;
+    --text-main: #F0F0F0;
+    --text-sub: #B0B0B0;
+    --text-muted: #666666;
+
+    /* Primary Colors (M Blue Gradient) */
+    --primary-gradient-start: #4D96FF;
+    --primary-gradient-end: #2563EB;
+    --primary-border: #1D4ED8;
+
+    /* Secondary Colors (Dark Metal) */
+    --secondary-bg: #2D2D2D;
+    --secondary-gradient-start: #4A4A4A;
+    --secondary-gradient-end: #2D2D2D;
+    --secondary-border: #555555;
+    
+    /* Danger Colors (M Red) */
+    --danger-gradient-start: #FF4444;
+    --danger-gradient-end: #B01020;
+
+    --border-color: #333333;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.5);
+    --shadow-btn: 0 2px 5px rgba(0,0,0,0.4);
+
+    /* M Tricolor Gradient Bar */
+    --decoration-line: 4px solid transparent;
+    --decoration-image: linear-gradient(90deg, 
+        #6BB7EA 0%, #6BB7EA 33.3%, 
+        #002D5A 33.3%, #002D5A 66.6%, 
+        #D9243C 66.6%, #D9243C 100%);
+}
+
+/* =========================================
+   Base Layout & Reset
+   ========================================= */
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 카드 스타일 */
+.bg-white {
+    background-color: var(--bg-card) !important;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    color: var(--text-main);
+}
+
+/* 텍스트 색상 재정의 */
+.text-gray-800, .text-gray-700 { color: var(--text-main) !important; }
+.text-gray-600, .text-gray-500 { color: var(--text-sub) !important; }
+.text-gray-400 { color: var(--text-muted) !important; }
+
+/* =========================================
+   Component: Header
+   ========================================= */
+header {
+    border-bottom: var(--decoration-line) !important;
+    border-image: var(--decoration-image) 1 !important;
+}
+.dark-mode header {
+    border-bottom-width: 4px !important;
+    border-image-slice: 1 !important;
+}
+
+/* =========================================
+   ★ Stylish Buttons (All Buttons) ★
+   ========================================= */
+
+/* 1. Primary Buttons (Blue, Indigo classes) -> Theme Gradient */
+.bg-blue-500, .bg-indigo-500, 
+button[type="submit"].bg-blue-500,
+.quick-link-btn {
+    background-color: var(--primary-gradient-end) !important; /* Fallback */
+    background-image: linear-gradient(to bottom, var(--primary-gradient-start), var(--primary-gradient-end)) !important;
+    border: 1px solid var(--primary-border) !important;
+    color: #fff !important;
+    box-shadow: var(--shadow-btn), inset 0 1px 0 rgba(255,255,255,0.2) !important;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    transition: all 0.2s ease !important;
+}
+
+.bg-blue-500:hover, .bg-indigo-500:hover, .quick-link-btn:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.3) !important;
+}
+
+.bg-blue-500:active, .bg-indigo-500:active, .quick-link-btn:active {
+    transform: translateY(1px);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+/* 2. Secondary Buttons (Gray classes) -> Metallic/Dark Metal */
+.bg-gray-200, .bg-gray-500, .bg-gray-100 {
+    background-color: var(--secondary-bg) !important;
+    background-image: linear-gradient(to bottom, var(--secondary-gradient-start), var(--secondary-gradient-end)) !important;
+    border: 1px solid var(--secondary-border) !important;
+    color: var(--text-main) !important;
+    box-shadow: var(--shadow-btn) !important;
+}
+
+.bg-gray-200:hover, .bg-gray-500:hover, .bg-gray-100:hover {
+    filter: brightness(0.95); /* Light mode dimming */
+}
+.dark-mode .bg-gray-200:hover, .dark-mode .bg-gray-500:hover {
+    filter: brightness(1.2); /* Dark mode lightening */
+}
+
+/* 3. Danger Buttons (Red classes) -> Warning Red Gradient */
+.bg-red-500, .bg-red-200, .text-red-600.bg-red-200 {
+    background-color: var(--danger-gradient-end) !important;
+    background-image: linear-gradient(to bottom, var(--danger-gradient-start), var(--danger-gradient-end)) !important;
+    border: 1px solid #990000 !important;
+    color: white !important;
+    box-shadow: var(--shadow-btn) !important;
+}
+.bg-red-500:hover, .bg-red-200:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 4px 8px rgba(200,0,0,0.3) !important;
+}
+
+/* 링크 텍스트 색상 (Primary Color 따라가기) */
+.text-blue-500, .text-indigo-600 {
+    color: var(--primary-gradient-end) !important;
+    font-weight: 600;
+}
+.dark-mode .text-blue-500, .dark-mode .text-indigo-600 {
+    color: #60A5FA !important; /* 다크모드에선 조금 더 밝게 */
+}
+.text-blue-500:hover, .text-indigo-600:hover {
+    text-decoration: underline;
+    filter: brightness(1.1);
+}
+
+/* =========================================
+   Component: Input Fields
+   ========================================= */
+input, textarea, select {
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+
+input:focus, textarea:focus {
+    outline: none !important;
+    border-color: var(--primary-gradient-end) !important;
+    box-shadow: 0 0 0 3px rgba(255, 150, 0, 0.2) !important;
+}
+
+.dark-mode input:focus, .dark-mode textarea:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* =========================================
+   Specific Component Fixes
+   ========================================= */
+
+/* 빠른 링크 버튼 크기 및 정렬 */
 .quick-link-btn {
     display: flex;
     align-items: center;
@@ -17,247 +208,50 @@ body {
     height: 50px; 
     padding: 0.25rem 0.5rem;
     border-radius: 0.75rem;
-    background-color: #4f46e5;
-    color: white;
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 1.3;
     text-decoration: none;
-    transition: background-color 0.2s ease-in-out;
     word-break: keep-all;
     flex-shrink: 0;
 }
-.quick-link-btn:hover {
-    background-color: #4338ca;
-}
-.quick-link-btn.two-line {
-    font-size: 0.875rem;
-}
+.quick-link-btn.two-line { font-size: 0.875rem; }
 
-/* 관리자 페이지 탭 스타일은 admin.php 파일로 이동되었습니다. */
+/* 그룹 토글 */
+.group-content { transition: all 0.3s ease-in-out; }
 
-/* 이미지 미리보기 스타일 */
-.image-preview-wrapper {
-    position: relative;
-    display: inline-block;
-}
+/* 이미지 미리보기 삭제 버튼 (작은 원형 버튼) */
 .remove-image-btn {
     position: absolute;
     top: -8px;
     right: -8px;
-    background-color: rgba(220, 38, 38, 0.9);
+    background: linear-gradient(to bottom, #FF6B6B, #D9243C);
     color: white;
-    border: 2px solid white;
+    border: 2px solid var(--bg-card);
     border-radius: 50%;
     width: 24px;
     height: 24px;
     font-size: 14px;
     font-weight: bold;
-    line-height: 20px;
-    text-align: center;
+    display: flex; align-items: center; justify-content: center;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-}
-.remove-image-btn:hover {
-    background-color: rgba(185, 28, 28, 1);
-}
-.dark-mode .remove-image-btn {
-    border-color: #2d3748;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-
-/* 다크 모드 스타일 */
-.dark-mode body {
-    background-color: #1a202c;
-    color: #e2e8f0;
-}
-.dark-mode .bg-white {
-    background-color: #2d3748;
-    border-color: #61684a;
-}
-.dark-mode .bg-gray-50 {
-    background-color: #4a5568;
-    border-color: #967171;
-}
-.dark-mode .text-gray-800 {
-    color: #f7fafc;
-}
-.dark-mode .text-gray-700, .dark-mode .text-gray-600 {
-    color: #a0aec0;
-}
-.dark-mode .text-gray-500 {
-    color: #718096;
-}
-.dark-mode .text-gray-400 {
-    color: #90a3bf;
-}
-.dark-mode .border-gray-300 {
-    border-color: #4a5568;
-}
-.dark-mode .border-b, .dark-mode .border-t, .dark-mode .border-b-2, .dark-mode .border-l, .dark-mode .border-gray-200 {
-    border-color: #4a5568;
-}
-.dark-mode input, .dark-mode textarea, .dark-mode select {
-    background-color: #1a202c;
-    color: #e2e8f0;
-    border-color: #4a5568;
-}
-.dark-mode input::placeholder, .dark-mode textarea::placeholder {
-    color: #718096;
-}
-.dark-mode .bg-gray-100 {
-    background-color: #1f2937;
-}
-
-/* 토글 스위치 스타일 */
+/* 토글 스위치 (테마) */
 .theme-switch-wrapper { display: flex; align-items: center; }
 .theme-switch { display: inline-block; height: 24px; position: relative; width: 48px; }
 .theme-switch input { display: none; }
 .slider { background-color: #ccc; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; }
-.slider:before { background-color: #fff; bottom: 4px; content: ""; height: 16px; left: 4px; position: absolute; transition: .4s; width: 16px; }
-input:checked + .slider { background-color: #4c51bf; }
+.slider:before { background-color: #fff; bottom: 4px; content: ""; height: 16px; left: 4px; position: absolute; transition: .4s; width: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+
+input:checked + .slider { background-color: var(--primary-gradient-end); }
 input:checked + .slider:before { transform: translateX(24px); }
 .slider.round { border-radius: 34px; }
 .slider.round:before { border-radius: 50%; }
 
-/* File: src/asset/css/style.css */
-body {
-    background-color: #bababa;
-    transition: background-color 0.3s, color 0.3s;
-}
-.group-content {
-    transition: all 0.3s ease-in-out;
+/* 다크모드 내부 배경 보정 */
+.dark-mode .bg-gray-50, 
+.dark-mode .hover\:bg-gray-50:hover {
+    background-color: #262626 !important;
+    border-color: var(--border-color);
 }
 
-/* 빠른 링크 버튼 스타일 */
-.quick-link-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 130px; 
-    height: 50px; 
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.75rem;
-    background-color: #4f46e5;
-    color: white;
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 1.3;
-    text-decoration: none;
-    transition: background-color 0.2s ease-in-out;
-    word-break: keep-all;
-    flex-shrink: 0;
-}
-.quick-link-btn:hover {
-    background-color: #4338ca;
-}
-.quick-link-btn.two-line {
-    font-size: 0.875rem;
-}
-
-/* 관리자 페이지 탭 스타일은 admin.php 파일로 이동되었습니다. */
-
-/* 이미지 미리보기 스타일 */
-.image-preview-wrapper {
-    position: relative;
-    display: inline-block;
-}
-.remove-image-btn {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: rgba(220, 38, 38, 0.9);
-    color: white;
-    border: 2px solid white;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 20px;
-    text-align: center;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-}
-.remove-image-btn:hover {
-    background-color: rgba(185, 28, 28, 1);
-}
-.dark-mode .remove-image-btn {
-    border-color: #2d3748;
-}
-
-
-/* 다크 모드 스타일 */
-.dark-mode body {
-    background-color: #1a202c;
-    color: #e2e8f0;
-}
-.dark-mode .bg-white {
-    background-color: #2d3748;
-    border-color: #61684a;
-}
-.dark-mode .bg-gray-50 {
-    background-color: #4a5568;
-    border-color: #967171;
-}
-.dark-mode .text-gray-800 {
-    color: #f7fafc;
-}
-.dark-mode .text-gray-700, .dark-mode .text-gray-600 {
-    color: #a0aec0;
-}
-.dark-mode .text-gray-500 {
-    color: #718096;
-}
-.dark-mode .text-gray-400 {
-    color: #90a3bf;
-}
-.dark-mode .border-gray-300 {
-    border-color: #4a5568;
-}
-.dark-mode .border-b, .dark-mode .border-t, .dark-mode .border-b-2, .dark-mode .border-l, .dark-mode .border-gray-200 {
-    border-color: #4a5568;
-}
-.dark-mode input, .dark-mode textarea, .dark-mode select {
-    background-color: #1a202c;
-    color: #e2e8f0;
-    border-color: #4a5568;
-}
-.dark-mode input::placeholder, .dark-mode textarea::placeholder {
-    color: #718096;
-}
-.dark-mode .bg-gray-100 {
-    background-color: #1f2937;
-}
-
-/* 토글 스위치 스타일 */
-.theme-switch-wrapper { display: flex; align-items: center; }
-.theme-switch { display: inline-block; height: 24px; position: relative; width: 48px; }
-.theme-switch input { display: none; }
-.slider { background-color: #ccc; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; }
-.slider:before { background-color: #fff; bottom: 4px; content: ""; height: 16px; left: 4px; position: absolute; transition: .4s; width: 16px; }
-input:checked + .slider { background-color: #4c51bf; }
-input:checked + .slider:before { transform: translateX(24px); }
-.slider.round { border-radius: 34px; }
-.slider.round:before { border-radius: 50%; }
-
-/* 정보 카드 스타일 (새로 추가) */
-.info-card-link {
-    text-decoration: none;
-}
-.dark-mode .info-card {
-    background-color: #2d3748;
-}
-.dark-mode .info-card h3 {
-    color: #f7fafc;
-}
-.dark-mode .info-card p {
-    color: #a0aec0;
-}
+.info-card-link { text-decoration: none; }
